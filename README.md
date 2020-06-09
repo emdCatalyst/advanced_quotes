@@ -7,7 +7,7 @@
   </a>
 
   <a class="downloads" href="https://pypi.org/project/advanced_quotes/">
-    <img src="https://img.shields.io/pypi/dw/advanced_quotes?label=Downloads">
+    <img src="https://img.shields.io/pypi/dw/advanced_quotes?label=Downloads&style=flat-square">
   </a>
 
   <a class="status" href="https://pypi.org/project/advanced_quotes/">
