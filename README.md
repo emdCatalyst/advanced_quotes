@@ -34,7 +34,7 @@
 - Import the module, use whatever you need
 
 ### Documentation
-This module is fully documented on the dedicated [website](https://advanced_quotes.mahdios.gq/).
+This module is fully documented on the dedicated [website](https://advanced-quotes.mahdios.gq).
 
 ### Copyright
 
