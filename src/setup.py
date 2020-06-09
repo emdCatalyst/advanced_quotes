@@ -3,10 +3,6 @@ import setuptools
 with open('README.md', 'r') as readme:
   long_description = readme.read()
 
-with open('requirements.txt', 'r') as requirements_file:
-  requirements_text = requirements_file.read()
-
-requirements = requirements_text.split()
 
 setuptools.setup(
       name='advanced_quotes',
