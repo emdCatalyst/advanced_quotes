@@ -28,10 +28,10 @@
 ### Getting started
 - Download the module using pip :
 
-      $ pip install advanced_quotes
+      $ pip install advanced-quotes
 
     **Note**: This may differentiate depending on your use case
-- Import the module, use whatever you need
+- Import the module, use whatever you need. Also, you'll be accessing the module using **advanced_quotes** instead of **advanced-quotes**
 
 ### Documentation
 This module is fully documented on the dedicated [website](https://advanced-quotes.mahdios.gq).
