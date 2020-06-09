@@ -1,0 +1,654 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.8.1" />
+<title>advanced-quotes.authors API documentation</title>
+<meta name="description" content="" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>advanced-quotes.authors</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">from requests import get
+from bs4 import BeautifulSoup
+import re
+
+def index(letter:str=&#39;a&#39;, page:int=1):
+    &#34;&#34;&#34;
+
+    Retrieve all the authors whom name starts with a given letter
+
+    Args:
+        letter (str, optional): The letter to filter by (case unsensitive), defaults to &#39;a&#39;.
+        page: (int, optional): Due to high number of authors, the authors are split in pages (typically 200 per page). Make sure the letter you&#39;re giving contains enough authors. Defaults to 1.
+
+    Returns:
+        list&lt;``Author``&gt;: The authors related to this letter
+
+    Raises:
+        TypeError: In case you gave a param of wrong type
+
+    Examples:
+        Viewing the first a author&#39;s snippet
+
+        &gt;&gt;&gt; print(all()[&#39;authors&#39;][0].snippet())
+        {&#39;nationality&#39;: &#39;American&#39;, &#39;occupation&#39;: &#39;Musician&#39;, &#39;dates&#39;: {&#39;birth&#39;: {&#39;date&#39;: &#39;December 6&#39;, &#39;year&#39;: &#39;1995&#39;}, &#39;death&#39;: None}, &#39;related_authors&#39;: [&lt;__main__.Athor object at 0x033898D0&gt;, &lt;__main__.Author object at 0x03389890&gt;, &lt;__main__.Author object at 0x03389D10&gt;, &lt;__main__.Author object at 0x03389D50&gt;, &lt;__main__.Author object at 0x03389D70&gt;, &lt;__main__.Author object at 0x03389DB0&gt;, &lt;__main__.Author object at 0x03389DD0&gt;, &lt;__main__.Author object at 0x03389DF0&gt;]}
+
+        Viewing all of &#39;a&#39; letter authors
+
+        &gt;&gt;&gt; print(all()[&#39;authors&#39;])
+        {&#39;authors&#39;: [&lt;__main__.Author object at 0x03242CB0&gt;...200], &#39;total_pages&#39;: 12, &#39;on_page&#39;: 200}
+    &#34;&#34;&#34;
+    try:
+        if(not type(page) == int):
+            raise TypeError(&#39;The page must be a string&#39;)
+        authors = f&#39;https://www.brainyquote.com/authors/{letter.lower()}{str(page)}&#39;
+        body = get(authors).text
+        parsed_body = BeautifulSoup(body, &#39;html.parser&#39;)
+        data = {
+            &#39;authors&#39;: [],
+            &#39;total_pages&#39;: int(parsed_body.select_one(&#39;body &gt; div.container.bqTopLevel &gt; div &gt; div.col-sm-8.col-md-8 &gt; div:nth-child(4) &gt; div &gt; div &gt; div &gt; div &gt; div &gt; div &gt; nav &gt; ul&#39;).find_all(&#39;li&#39;)[len(parsed_body.select_one(&#39;body &gt; div.container.bqTopLevel &gt; div &gt; div.col-sm-8.col-md-8 &gt; div:nth-child(4) &gt; div &gt; div &gt; div &gt; div &gt; div &gt; div &gt; nav &gt; ul&#39;).find_all(&#39;li&#39;)) - 2].get_text()),
+        }
+        for tr in parsed_body.find(&#39;tbody&#39;).find_all(&#39;tr&#39;):
+            data[&#39;authors&#39;].append(Author(tr.select_one(&#39;td:nth-child(1) &gt; a&#39;).get(&#39;href&#39;).strip()))
+        data[&#39;on_page&#39;] = len(data[&#39;authors&#39;])
+        return data
+    except Exception as e:
+        raise e
+
+def most_viewed(letter:str=&#39;a&#39;):
+    &#34;&#34;&#34;
+
+    Retrieve the most viewed authors of a given letter
+
+    Args:
+        letter (str, optional): The letter to filter by (case unsensitive), defaults to &#39;a&#39;.
+
+    Returns:
+        list&lt;``Author``&gt;: The authors.
+
+    Raises:
+        TypeError: In case you gave a param of wrong type
+
+    &#34;&#34;&#34;
+    try:
+        endpoint = f&#39;https://www.brainyquote.com/authors/{letter.lower()}&#39;
+        body = get(endpoint).text
+        parsed_body = BeautifulSoup(body, &#39;html.parser&#39;)
+        data = []
+        for a in parsed_body.select(&#39;a.block-sm-az&#39;):
+            data.append(Author(re.sub(&#39;/authors/&#39;,&#39;&#39;,a.get(&#39;href&#39;))))
+        return data
+    except Exception as e:
+        raise e
+
+class Author():
+    def __init__(self, UUID:str):
+        &#34;&#34;&#34;
+        Create an author object wich allows access to every piece of data available on the author including the name, a set of his quotes, biography and full on social info.
+
+        Args:
+            UUID (str): A special formatted version of the author&#39;s name , all lowercase and special chars removed. Check the ``misc.toUUID()`` to convert a name to an UUID
+        &#34;&#34;&#34;
+        self.UUID = UUID
+
+    def snippet(self):
+        &#34;&#34;&#34;
+        Basic info about the author such as nationality, occupation, birth/death and related authors
+
+        Returns:
+            dict&lt;`str`&gt;: The dict that holds the info.
+
+        Raises:
+            ValueError: That UUID is probably wrong bud.
+
+        Note:
+            Includes instances of the ``Author`` class
+        &#34;&#34;&#34;
+        try:
+            endpoint = f&#39;https://www.brainyquote.com/authors/{self.UUID}&#39;
+            body = get(endpoint).text
+            parsed_body  = BeautifulSoup(body, &#39;html.parser&#39;)
+            data = {
+                &#39;name&#39;: re.sub(&#39;Quotes&#39;, &#39;&#39;,parsed_body.select_one(&#39;#bqNavBarCtrl &gt; div &gt; nav &gt; div.navbar-header &gt; h1&#39;).get_text()),
+                &#39;nationality&#39;: parsed_body.select_one(&#39;body &gt; div.subnav-below-p &gt; a:nth-child(1)&#39;).get_text(),
+                &#39;occupation&#39;: parsed_body.select_one(&#39;body &gt; div.subnav-below-p &gt; a:nth-child(2)&#39;).get_text(),
+                &#39;related_authors&#39;: []
+            }
+            for author in parsed_body.select_one(&#39;body &gt; div.infScrollFooter &gt; div.container-fluid &gt; div &gt; div.col-sm-7.col-md-8.block-style &gt; div.bq_s &gt; div&#39;).find_all(&#39;div&#39;):
+                data[&#39;related_authors&#39;].append(Author(re.sub(&#39;Quotes&#39;, &#39;&#39;, author.select_one(&#39;.link-name&#39;).get_text().strip())))
+            return data
+        except Exception as e:
+            raise ValueError(&#39;That UUID is probably wrong bud.&#39;)
+
+    def biography(self):
+        &#34;&#34;&#34;
+        Retrieve the author&#39;s biography if available.
+
+        Returns:
+            str: The biography.
+
+        Raises:
+            ValueError: That UUID is wrong or the biography is not available.
+        &#34;&#34;&#34;
+        try:
+            endpoint = f&#39;https://www.brainyquote.com/quotes/biography/{self.UUID}&#39;
+            body = get(endpoint).text
+            parsed_body  = BeautifulSoup(body, &#39;html.parser&#39;)
+            return parsed_body.select_one(&#39;div.bio-content&#39;).get_text().strip()
+        except Exception as e:
+            raise ValueError(&#39;That UUID is wrong or the biography is not available.&#39;)
+
+
+    def quotes(self, page:int=1):
+        &#34;&#34;&#34;
+        Retrieve the author&#39;s set of quotes, instances of the ``Quote`` class
+
+        Args:
+            page: (int, optional): Due to high number of quotes sometimes, they are split in pages. Make sure the author you&#39;ve selected has enough pages. Defaults to 1.
+
+        Returns:
+            list&lt;``quotes.Quote``&gt;: The set of quotes.
+
+        Raises:
+            ValueError: That UUID is probably wrong bud.
+            TypeError: Invalid type or format of the page parameter.
+
+        Example:
+            Retrieve the first page of abraham lincoln quotes
+
+            &gt;&gt;&gt; print(Author(&#39;abraham-lincoln&#39;).quotes())
+            {&#39;current_page&#39;: 1, &#39;total_pages&#39;: 9, &#39;elements&#39;: [&lt;quotes.Quote object at 0x031A6C10&gt;...165], &#39;on_page&#39;: 165}
+        &#34;&#34;&#34;
+        from quotes import Quote
+        try:
+            if(not type(page) == int or page &lt; 1):
+                raise TypeError(&#39;Invalid type or format of the page parameter.&#39;)
+            endpoint = f&#39;https://www.brainyquote.com/authors/{self.UUID}-quotes_{page}&#39;
+            body = get(endpoint).text
+            parsed_body  = BeautifulSoup(body, &#39;html.parser&#39;)
+            data = {
+                &#39;current_page&#39;: page,
+                &#39;total_pages&#39;: int(parsed_body.select_one(&#39;body &gt; div.infScrollFooter &gt; div.bq_s.hideInfScroll.bq_pageNumbersCont &gt; nav &gt; ul&#39;).find_all(&#39;li&#39;)[len(parsed_body.select_one(&#39;body &gt; div.infScrollFooter &gt; div.bq_s.hideInfScroll.bq_pageNumbersCont &gt; nav &gt; ul&#39;).find_all(&#39;li&#39;)) - 2].get_text()),
+                &#39;elements&#39;: []
+            }
+            for quote in parsed_body.select_one(&#39;#quotesList&#39;).find_all(&#39;div&#39;):
+                try:
+                    data[&#39;elements&#39;].append(Quote(re.sub(&#39;/quotes/&#39;,&#39;&#39;,quote.select_one(&#39;div &gt; div:nth-child(1) &gt; div &gt; a&#39;).get(&#39;href&#39;))))
+                except Exception as e:
+                    continue
+            data[&#39;on_page&#39;] = len(data[&#39;elements&#39;])
+            return data
+        except Exception as e:
+            raise ValueError(&#39;That UUID is probably wrong bud.&#39;)</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="advanced-quotes.authors.index"><code class="name flex">
+<span>def <span class="ident">index</span></span>(<span>letter: str = 'a', page: int = 1)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Retrieve all the authors whom name starts with a given letter</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>letter</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The letter to filter by (case unsensitive), defaults to 'a'.</dd>
+<dt><strong><code>page</code></strong></dt>
+<dd>(int, optional): Due to high number of authors, the authors are split in pages (typically 200 per page). Make sure the letter you're giving contains enough authors. Defaults to 1.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>list&lt;<code><a title="advanced-quotes.authors.Author" href="#advanced-quotes.authors.Author">Author</a></code>&gt;: The authors related to this letter</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>TypeError</code></dt>
+<dd>In case you gave a param of wrong type</dd>
+</dl>
+<h2 id="examples">Examples</h2>
+<p>Viewing the first a author's snippet</p>
+<pre><code class="python">&gt;&gt;&gt; print(all()['authors'][0].snippet())
+{'nationality': 'American', 'occupation': 'Musician', 'dates': {'birth': {'date': 'December 6', 'year': '1995'}, 'death': None}, 'related_authors': [&lt;__main__.Athor object at 0x033898D0&gt;, &lt;__main__.Author object at 0x03389890&gt;, &lt;__main__.Author object at 0x03389D10&gt;, &lt;__main__.Author object at 0x03389D50&gt;, &lt;__main__.Author object at 0x03389D70&gt;, &lt;__main__.Author object at 0x03389DB0&gt;, &lt;__main__.Author object at 0x03389DD0&gt;, &lt;__main__.Author object at 0x03389DF0&gt;]}
+</code></pre>
+<p>Viewing all of 'a' letter authors</p>
+<pre><code class="python">&gt;&gt;&gt; print(all()['authors'])
+{'authors': [&lt;__main__.Author object at 0x03242CB0&gt;...200], 'total_pages': 12, 'on_page': 200}
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def index(letter:str=&#39;a&#39;, page:int=1):
+    &#34;&#34;&#34;
+
+    Retrieve all the authors whom name starts with a given letter
+
+    Args:
+        letter (str, optional): The letter to filter by (case unsensitive), defaults to &#39;a&#39;.
+        page: (int, optional): Due to high number of authors, the authors are split in pages (typically 200 per page). Make sure the letter you&#39;re giving contains enough authors. Defaults to 1.
+
+    Returns:
+        list&lt;``Author``&gt;: The authors related to this letter
+
+    Raises:
+        TypeError: In case you gave a param of wrong type
+
+    Examples:
+        Viewing the first a author&#39;s snippet
+
+        &gt;&gt;&gt; print(all()[&#39;authors&#39;][0].snippet())
+        {&#39;nationality&#39;: &#39;American&#39;, &#39;occupation&#39;: &#39;Musician&#39;, &#39;dates&#39;: {&#39;birth&#39;: {&#39;date&#39;: &#39;December 6&#39;, &#39;year&#39;: &#39;1995&#39;}, &#39;death&#39;: None}, &#39;related_authors&#39;: [&lt;__main__.Athor object at 0x033898D0&gt;, &lt;__main__.Author object at 0x03389890&gt;, &lt;__main__.Author object at 0x03389D10&gt;, &lt;__main__.Author object at 0x03389D50&gt;, &lt;__main__.Author object at 0x03389D70&gt;, &lt;__main__.Author object at 0x03389DB0&gt;, &lt;__main__.Author object at 0x03389DD0&gt;, &lt;__main__.Author object at 0x03389DF0&gt;]}
+
+        Viewing all of &#39;a&#39; letter authors
+
+        &gt;&gt;&gt; print(all()[&#39;authors&#39;])
+        {&#39;authors&#39;: [&lt;__main__.Author object at 0x03242CB0&gt;...200], &#39;total_pages&#39;: 12, &#39;on_page&#39;: 200}
+    &#34;&#34;&#34;
+    try:
+        if(not type(page) == int):
+            raise TypeError(&#39;The page must be a string&#39;)
+        authors = f&#39;https://www.brainyquote.com/authors/{letter.lower()}{str(page)}&#39;
+        body = get(authors).text
+        parsed_body = BeautifulSoup(body, &#39;html.parser&#39;)
+        data = {
+            &#39;authors&#39;: [],
+            &#39;total_pages&#39;: int(parsed_body.select_one(&#39;body &gt; div.container.bqTopLevel &gt; div &gt; div.col-sm-8.col-md-8 &gt; div:nth-child(4) &gt; div &gt; div &gt; div &gt; div &gt; div &gt; div &gt; nav &gt; ul&#39;).find_all(&#39;li&#39;)[len(parsed_body.select_one(&#39;body &gt; div.container.bqTopLevel &gt; div &gt; div.col-sm-8.col-md-8 &gt; div:nth-child(4) &gt; div &gt; div &gt; div &gt; div &gt; div &gt; div &gt; nav &gt; ul&#39;).find_all(&#39;li&#39;)) - 2].get_text()),
+        }
+        for tr in parsed_body.find(&#39;tbody&#39;).find_all(&#39;tr&#39;):
+            data[&#39;authors&#39;].append(Author(tr.select_one(&#39;td:nth-child(1) &gt; a&#39;).get(&#39;href&#39;).strip()))
+        data[&#39;on_page&#39;] = len(data[&#39;authors&#39;])
+        return data
+    except Exception as e:
+        raise e</code></pre>
+</details>
+</dd>
+<dt id="advanced-quotes.authors.most_viewed"><code class="name flex">
+<span>def <span class="ident">most_viewed</span></span>(<span>letter: str = 'a')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Retrieve the most viewed authors of a given letter</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>letter</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The letter to filter by (case unsensitive), defaults to 'a'.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>list&lt;<code><a title="advanced-quotes.authors.Author" href="#advanced-quotes.authors.Author">Author</a></code>&gt;: The authors.</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>TypeError</code></dt>
+<dd>In case you gave a param of wrong type</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def most_viewed(letter:str=&#39;a&#39;):
+    &#34;&#34;&#34;
+
+    Retrieve the most viewed authors of a given letter
+
+    Args:
+        letter (str, optional): The letter to filter by (case unsensitive), defaults to &#39;a&#39;.
+
+    Returns:
+        list&lt;``Author``&gt;: The authors.
+
+    Raises:
+        TypeError: In case you gave a param of wrong type
+
+    &#34;&#34;&#34;
+    try:
+        endpoint = f&#39;https://www.brainyquote.com/authors/{letter.lower()}&#39;
+        body = get(endpoint).text
+        parsed_body = BeautifulSoup(body, &#39;html.parser&#39;)
+        data = []
+        for a in parsed_body.select(&#39;a.block-sm-az&#39;):
+            data.append(Author(re.sub(&#39;/authors/&#39;,&#39;&#39;,a.get(&#39;href&#39;))))
+        return data
+    except Exception as e:
+        raise e</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="advanced-quotes.authors.Author"><code class="flex name class">
+<span>class <span class="ident">Author</span></span>
+<span>(</span><span>UUID: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Create an author object wich allows access to every piece of data available on the author including the name, a set of his quotes, biography and full on social info.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>UUID</code></strong> :&ensp;<code>str</code></dt>
+<dd>A special formatted version of the author's name , all lowercase and special chars removed. Check the <code>misc.toUUID()</code> to convert a name to an UUID</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Author():
+    def __init__(self, UUID:str):
+        &#34;&#34;&#34;
+        Create an author object wich allows access to every piece of data available on the author including the name, a set of his quotes, biography and full on social info.
+
+        Args:
+            UUID (str): A special formatted version of the author&#39;s name , all lowercase and special chars removed. Check the ``misc.toUUID()`` to convert a name to an UUID
+        &#34;&#34;&#34;
+        self.UUID = UUID
+
+    def snippet(self):
+        &#34;&#34;&#34;
+        Basic info about the author such as nationality, occupation, birth/death and related authors
+
+        Returns:
+            dict&lt;`str`&gt;: The dict that holds the info.
+
+        Raises:
+            ValueError: That UUID is probably wrong bud.
+
+        Note:
+            Includes instances of the ``Author`` class
+        &#34;&#34;&#34;
+        try:
+            endpoint = f&#39;https://www.brainyquote.com/authors/{self.UUID}&#39;
+            body = get(endpoint).text
+            parsed_body  = BeautifulSoup(body, &#39;html.parser&#39;)
+            data = {
+                &#39;name&#39;: re.sub(&#39;Quotes&#39;, &#39;&#39;,parsed_body.select_one(&#39;#bqNavBarCtrl &gt; div &gt; nav &gt; div.navbar-header &gt; h1&#39;).get_text()),
+                &#39;nationality&#39;: parsed_body.select_one(&#39;body &gt; div.subnav-below-p &gt; a:nth-child(1)&#39;).get_text(),
+                &#39;occupation&#39;: parsed_body.select_one(&#39;body &gt; div.subnav-below-p &gt; a:nth-child(2)&#39;).get_text(),
+                &#39;related_authors&#39;: []
+            }
+            for author in parsed_body.select_one(&#39;body &gt; div.infScrollFooter &gt; div.container-fluid &gt; div &gt; div.col-sm-7.col-md-8.block-style &gt; div.bq_s &gt; div&#39;).find_all(&#39;div&#39;):
+                data[&#39;related_authors&#39;].append(Author(re.sub(&#39;Quotes&#39;, &#39;&#39;, author.select_one(&#39;.link-name&#39;).get_text().strip())))
+            return data
+        except Exception as e:
+            raise ValueError(&#39;That UUID is probably wrong bud.&#39;)
+
+    def biography(self):
+        &#34;&#34;&#34;
+        Retrieve the author&#39;s biography if available.
+
+        Returns:
+            str: The biography.
+
+        Raises:
+            ValueError: That UUID is wrong or the biography is not available.
+        &#34;&#34;&#34;
+        try:
+            endpoint = f&#39;https://www.brainyquote.com/quotes/biography/{self.UUID}&#39;
+            body = get(endpoint).text
+            parsed_body  = BeautifulSoup(body, &#39;html.parser&#39;)
+            return parsed_body.select_one(&#39;div.bio-content&#39;).get_text().strip()
+        except Exception as e:
+            raise ValueError(&#39;That UUID is wrong or the biography is not available.&#39;)
+
+
+    def quotes(self, page:int=1):
+        &#34;&#34;&#34;
+        Retrieve the author&#39;s set of quotes, instances of the ``Quote`` class
+
+        Args:
+            page: (int, optional): Due to high number of quotes sometimes, they are split in pages. Make sure the author you&#39;ve selected has enough pages. Defaults to 1.
+
+        Returns:
+            list&lt;``quotes.Quote``&gt;: The set of quotes.
+
+        Raises:
+            ValueError: That UUID is probably wrong bud.
+            TypeError: Invalid type or format of the page parameter.
+
+        Example:
+            Retrieve the first page of abraham lincoln quotes
+
+            &gt;&gt;&gt; print(Author(&#39;abraham-lincoln&#39;).quotes())
+            {&#39;current_page&#39;: 1, &#39;total_pages&#39;: 9, &#39;elements&#39;: [&lt;quotes.Quote object at 0x031A6C10&gt;...165], &#39;on_page&#39;: 165}
+        &#34;&#34;&#34;
+        from quotes import Quote
+        try:
+            if(not type(page) == int or page &lt; 1):
+                raise TypeError(&#39;Invalid type or format of the page parameter.&#39;)
+            endpoint = f&#39;https://www.brainyquote.com/authors/{self.UUID}-quotes_{page}&#39;
+            body = get(endpoint).text
+            parsed_body  = BeautifulSoup(body, &#39;html.parser&#39;)
+            data = {
+                &#39;current_page&#39;: page,
+                &#39;total_pages&#39;: int(parsed_body.select_one(&#39;body &gt; div.infScrollFooter &gt; div.bq_s.hideInfScroll.bq_pageNumbersCont &gt; nav &gt; ul&#39;).find_all(&#39;li&#39;)[len(parsed_body.select_one(&#39;body &gt; div.infScrollFooter &gt; div.bq_s.hideInfScroll.bq_pageNumbersCont &gt; nav &gt; ul&#39;).find_all(&#39;li&#39;)) - 2].get_text()),
+                &#39;elements&#39;: []
+            }
+            for quote in parsed_body.select_one(&#39;#quotesList&#39;).find_all(&#39;div&#39;):
+                try:
+                    data[&#39;elements&#39;].append(Quote(re.sub(&#39;/quotes/&#39;,&#39;&#39;,quote.select_one(&#39;div &gt; div:nth-child(1) &gt; div &gt; a&#39;).get(&#39;href&#39;))))
+                except Exception as e:
+                    continue
+            data[&#39;on_page&#39;] = len(data[&#39;elements&#39;])
+            return data
+        except Exception as e:
+            raise ValueError(&#39;That UUID is probably wrong bud.&#39;)</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="advanced-quotes.authors.Author.biography"><code class="name flex">
+<span>def <span class="ident">biography</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Retrieve the author's biography if available.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>The biography.</dd>
+</dl>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>ValueError</code></dt>
+<dd>That UUID is wrong or the biography is not available.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def biography(self):
+    &#34;&#34;&#34;
+    Retrieve the author&#39;s biography if available.
+
+    Returns:
+        str: The biography.
+
+    Raises:
+        ValueError: That UUID is wrong or the biography is not available.
+    &#34;&#34;&#34;
+    try:
+        endpoint = f&#39;https://www.brainyquote.com/quotes/biography/{self.UUID}&#39;
+        body = get(endpoint).text
+        parsed_body  = BeautifulSoup(body, &#39;html.parser&#39;)
+        return parsed_body.select_one(&#39;div.bio-content&#39;).get_text().strip()
+    except Exception as e:
+        raise ValueError(&#39;That UUID is wrong or the biography is not available.&#39;)</code></pre>
+</details>
+</dd>
+<dt id="advanced-quotes.authors.Author.quotes"><code class="name flex">
+<span>def <span class="ident">quotes</span></span>(<span>self, page: int = 1)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Retrieve the author's set of quotes, instances of the <code>Quote</code> class</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>page</code></strong></dt>
+<dd>(int, optional): Due to high number of quotes sometimes, they are split in pages. Make sure the author you've selected has enough pages. Defaults to 1.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>list&lt;<code>quotes.Quote</code>&gt;: The set of quotes.</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>ValueError</code></dt>
+<dd>That UUID is probably wrong bud.</dd>
+<dt><code>TypeError</code></dt>
+<dd>Invalid type or format of the page parameter.</dd>
+</dl>
+<h2 id="example">Example</h2>
+<p>Retrieve the first page of abraham lincoln quotes</p>
+<pre><code class="python">&gt;&gt;&gt; print(Author('abraham-lincoln').quotes())
+{'current_page': 1, 'total_pages': 9, 'elements': [&lt;quotes.Quote object at 0x031A6C10&gt;...165], 'on_page': 165}
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def quotes(self, page:int=1):
+    &#34;&#34;&#34;
+    Retrieve the author&#39;s set of quotes, instances of the ``Quote`` class
+
+    Args:
+        page: (int, optional): Due to high number of quotes sometimes, they are split in pages. Make sure the author you&#39;ve selected has enough pages. Defaults to 1.
+
+    Returns:
+        list&lt;``quotes.Quote``&gt;: The set of quotes.
+
+    Raises:
+        ValueError: That UUID is probably wrong bud.
+        TypeError: Invalid type or format of the page parameter.
+
+    Example:
+        Retrieve the first page of abraham lincoln quotes
+
+        &gt;&gt;&gt; print(Author(&#39;abraham-lincoln&#39;).quotes())
+        {&#39;current_page&#39;: 1, &#39;total_pages&#39;: 9, &#39;elements&#39;: [&lt;quotes.Quote object at 0x031A6C10&gt;...165], &#39;on_page&#39;: 165}
+    &#34;&#34;&#34;
+    from quotes import Quote
+    try:
+        if(not type(page) == int or page &lt; 1):
+            raise TypeError(&#39;Invalid type or format of the page parameter.&#39;)
+        endpoint = f&#39;https://www.brainyquote.com/authors/{self.UUID}-quotes_{page}&#39;
+        body = get(endpoint).text
+        parsed_body  = BeautifulSoup(body, &#39;html.parser&#39;)
+        data = {
+            &#39;current_page&#39;: page,
+            &#39;total_pages&#39;: int(parsed_body.select_one(&#39;body &gt; div.infScrollFooter &gt; div.bq_s.hideInfScroll.bq_pageNumbersCont &gt; nav &gt; ul&#39;).find_all(&#39;li&#39;)[len(parsed_body.select_one(&#39;body &gt; div.infScrollFooter &gt; div.bq_s.hideInfScroll.bq_pageNumbersCont &gt; nav &gt; ul&#39;).find_all(&#39;li&#39;)) - 2].get_text()),
+            &#39;elements&#39;: []
+        }
+        for quote in parsed_body.select_one(&#39;#quotesList&#39;).find_all(&#39;div&#39;):
+            try:
+                data[&#39;elements&#39;].append(Quote(re.sub(&#39;/quotes/&#39;,&#39;&#39;,quote.select_one(&#39;div &gt; div:nth-child(1) &gt; div &gt; a&#39;).get(&#39;href&#39;))))
+            except Exception as e:
+                continue
+        data[&#39;on_page&#39;] = len(data[&#39;elements&#39;])
+        return data
+    except Exception as e:
+        raise ValueError(&#39;That UUID is probably wrong bud.&#39;)</code></pre>
+</details>
+</dd>
+<dt id="advanced-quotes.authors.Author.snippet"><code class="name flex">
+<span>def <span class="ident">snippet</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Basic info about the author such as nationality, occupation, birth/death and related authors</p>
+<h2 id="returns">Returns</h2>
+<p>dict&lt;<code>str</code>&gt;: The dict that holds the info.</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>ValueError</code></dt>
+<dd>That UUID is probably wrong bud.</dd>
+</dl>
+<h2 id="note">Note</h2>
+<p>Includes instances of the <code><a title="advanced-quotes.authors.Author" href="#advanced-quotes.authors.Author">Author</a></code> class</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def snippet(self):
+    &#34;&#34;&#34;
+    Basic info about the author such as nationality, occupation, birth/death and related authors
+
+    Returns:
+        dict&lt;`str`&gt;: The dict that holds the info.
+
+    Raises:
+        ValueError: That UUID is probably wrong bud.
+
+    Note:
+        Includes instances of the ``Author`` class
+    &#34;&#34;&#34;
+    try:
+        endpoint = f&#39;https://www.brainyquote.com/authors/{self.UUID}&#39;
+        body = get(endpoint).text
+        parsed_body  = BeautifulSoup(body, &#39;html.parser&#39;)
+        data = {
+            &#39;name&#39;: re.sub(&#39;Quotes&#39;, &#39;&#39;,parsed_body.select_one(&#39;#bqNavBarCtrl &gt; div &gt; nav &gt; div.navbar-header &gt; h1&#39;).get_text()),
+            &#39;nationality&#39;: parsed_body.select_one(&#39;body &gt; div.subnav-below-p &gt; a:nth-child(1)&#39;).get_text(),
+            &#39;occupation&#39;: parsed_body.select_one(&#39;body &gt; div.subnav-below-p &gt; a:nth-child(2)&#39;).get_text(),
+            &#39;related_authors&#39;: []
+        }
+        for author in parsed_body.select_one(&#39;body &gt; div.infScrollFooter &gt; div.container-fluid &gt; div &gt; div.col-sm-7.col-md-8.block-style &gt; div.bq_s &gt; div&#39;).find_all(&#39;div&#39;):
+            data[&#39;related_authors&#39;].append(Author(re.sub(&#39;Quotes&#39;, &#39;&#39;, author.select_one(&#39;.link-name&#39;).get_text().strip())))
+        return data
+    except Exception as e:
+        raise ValueError(&#39;That UUID is probably wrong bud.&#39;)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="advanced-quotes" href="index.html">advanced-quotes</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="advanced-quotes.authors.index" href="#advanced-quotes.authors.index">index</a></code></li>
+<li><code><a title="advanced-quotes.authors.most_viewed" href="#advanced-quotes.authors.most_viewed">most_viewed</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="advanced-quotes.authors.Author" href="#advanced-quotes.authors.Author">Author</a></code></h4>
+<ul class="">
+<li><code><a title="advanced-quotes.authors.Author.biography" href="#advanced-quotes.authors.Author.biography">biography</a></code></li>
+<li><code><a title="advanced-quotes.authors.Author.quotes" href="#advanced-quotes.authors.Author.quotes">quotes</a></code></li>
+<li><code><a title="advanced-quotes.authors.Author.snippet" href="#advanced-quotes.authors.Author.snippet">snippet</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.1</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>
