@@ -149,7 +149,7 @@ class Author():
             >>> print(Author('abraham-lincoln').quotes())
             {'current_page': 1, 'total_pages': 9, 'elements': [<quotes.Quote object at 0x031A6C10>...165], 'on_page': 165}
         """
-        from quotes import Quote
+        from advanced_quotes.quotes import Quote
         try:
             if(not type(page) == int or page < 1):
                 raise TypeError('Invalid type or format of the page parameter.')

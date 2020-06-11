@@ -12,7 +12,7 @@ def random():
         Quote: The random qoute.
 
     """
-    from topics import most_viewed
+    from advanced_quotes.topics import most_viewed
     from random import choice
     random_topic = choice(most_viewed())
     random_quote = choice(random_topic.quotes()['elements'])
@@ -99,7 +99,7 @@ class Quote():
             Note:
                 Includes instances of the ``Author`` class
         """
-        from authors import Author
+        from advanced_quotes.authors import Author
         try:
             endpoint = f'https://www.brainyquote.com/quotes/{self.UUID}'
             body = get(endpoint).text
@@ -143,7 +143,7 @@ class Quote():
         Raises:
             ValueError: It seems like that UUID is invalid bud.
         """
-        from quotes import Quote
+        from advanced_quotes.quotes import Quote
         try:
             endpoint = f'https://www.brainyquote.com/quotes/{self.UUID}'
             body = get(endpoint).text

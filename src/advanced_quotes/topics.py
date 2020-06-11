@@ -39,7 +39,7 @@ class Topic(object):
         self.UUID = UUID
 
     def quotes(self, page:int=1):
-        from quotes import Quote
+        from advanced_quotes.quotes import Quote
         """
         Retrieve the quotes related to this topic.
 
